@@ -1,4 +1,4 @@
-<p align="center"><strong>Ndiaye-Shoes</strong></p>
+## Ndiaye-Shoes
 
 ![Page d'accueil](public/images/accueil.png)
 ![Page d'accueil](public/images/detail.png)
