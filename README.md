@@ -1,6 +1,6 @@
 <p align="center"><strong>Ndiaye-Shoes</strong></p>
 
-![Page d'accueil](images/accueil.png)
+![Page d'accueil](public/images/accueil.png)
 
 ## Présentation
 
