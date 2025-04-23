@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index(): Response
     {
         return Inertia::render('Product/Product', [
-            'products' => Product::orderBy('created_at', 'desc')->paginate(1),
+            'products' => Product::orderBy('created_at')->paginate(1),
         ]);
     }
 

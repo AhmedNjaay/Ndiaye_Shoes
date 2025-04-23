@@ -27,13 +27,14 @@
 -   [Laravel-Lang](https://github.com/Laravel-Lang/lang.git)
 -   [Laravel-react-i18n](https://github.com/EugeneMeles/laravel-react-i18n.git)
 -   Mailpit
+-   [heroicons](https://github.com/tailwindlabs/heroicons)
 
 ## Prérequis
 
--   PHP >= 8.2
+-   PHP >= 8.2.14
 -   Laravel >= 11
--   Node.js >= 20.16
--   Composer
+-   Node.js >= 23.11.0
+-   Composer >= 2.8.8
 -   Vite
 
 ## Installation
@@ -72,6 +73,10 @@ npm install
 
 ```bash
 npm run dev
+```
+
+```bash
+npm install @heroicons/react
 ```
 
 ### Démarrer le serveur local

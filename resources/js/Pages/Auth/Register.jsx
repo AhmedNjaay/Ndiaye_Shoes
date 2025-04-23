@@ -115,7 +115,7 @@ export default function Register() {
                     </Link>
 
                     <PrimaryButton className="ms-4" disabled={processing}>
-                       <Link href={route('order.index')}>{t('Register')}</Link>
+                        {t('Register')}
                     </PrimaryButton>
                 </div>
             </form>

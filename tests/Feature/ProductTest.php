@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -14,17 +14,28 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        /** @var \App\Models\Admin $admin **/
+
+        //Création et connection admin
+        $admin = Admin::factory()->create();
+        $this->actingAs($admin, 'admin'); // Authentification avec le guard "admin"
+    }
+
     public function test_product_screen_can_be_rendered(): void
     {
-        $response = $this->get('/product');
+        $response = $this->get('/admin-panel-9863/product');
 
         $response->assertStatus(200);
     }
 
-
     public function test_product_create_screen_can_be_rendered(): void
     {
-        $response = $this->get('/product/create');
+        $response = $this->get('/admin-panel-9863/product/create');
 
         $response->assertStatus(200);
     }

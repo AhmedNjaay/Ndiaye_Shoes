@@ -1,4 +1,6 @@
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link } from '@inertiajs/react'
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React from 'react'
 
 export default function Product ({products = []}) {
@@ -6,49 +8,69 @@ export default function Product ({products = []}) {
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(amount);
   };
+
+  const {t} = useLaravelReactI18n();
   
-  console.log('ed', products);
   return (
-    <div>
+    <AdminLayout>
       <Head>
-        <title>Products</title>
-        <link rel="icon" type="image/png" href="images/icon.png" />
+        <title>{t('Product')}</title>
       </Head>
-      <div className= "ml-4"> 
-        <Link href={route('product.create')} className='text-white p-2 m-4 rounded-[8px] bg-blue-500' as='button'>Add Produit</Link>
-        <Link href={route('size.index')} className='text-white p-2 m-4 rounded-[8px] bg-blue-500'>Size</Link>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">{t('Products')}</h1>
+        <Link href={route('product.create')} className='text-white px-4 py-2  rounded bg-blue-500'>{t('Add')}</Link>
       </div>
-       
-      <table className='w-full'>
-        <thead className='shadow' > 
-            <tr>
-              <th className='pr-6'>Name</th>
-              <th className='pl-1'>Price</th>
-              <th className='pr-2'>Stock quantity</th>
-              <th>Description</th>              
-              <th>Image</th>
-              <th>Actions</th>
-            </tr>
+
+      <table className='hidden lg:table bg-red-500 w-full shadow rounded text-left overflow-hidden bg-white'>
+        <thead className='bg-gray-100'> 
+          <tr className=''> 
+            <th className='p-4'>id</th>
+            <th>{t('Name')}</th>
+            <th className='pl-6'>{t('Price')}</th>
+            <th>{t('Stock quantity')}</th>
+            <th>Description</th>              
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
         </thead>
         <tbody>
           {(Array.isArray(products.data) ? products.data : []).map((product) => {
             return(
-              <tr key={product.id}>
-                <td className='p-8'>{product.name}</td>
-                <td>{formatCurrency(product.price)}</td>
+              <tr key={product.id} >
+                <td className='p-4'>{product.id}</td>
+                <td>{product.name}</td>
+                <td className='pl-6'>{formatCurrency(product.price)}</td>
                 <td className='pl-6'>{product.stock_quantity}</td>
                 <td>{product.description}</td>
                 <td className='w-[200px]'><img src={product.image} /></td>
-                <div className='flex flex-col items-center gap-y-2 mt-14'>
-                  <td><Link href={route('product.edit', product.id)} as='button' className='text-white p-2 rounded-[8px] bg-blue-500'>Edit</Link></td>
-                  <td><Link href={route('product.destroy', product.id)} as='button' method='delete' className='text-white p-2 rounded-[8px] bg-red-500'>Delete</Link></td>
-                </div>
+                <td className="flex space-x-2 mt-20 mr-2">
+                  <Link href={route('product.edit', product.id)} as='button' className='text-white p-2 rounded bg-blue-500'>{t('Edit')}</Link>
+                  <Link href={route('product.destroy', product.id)} as='button' method='delete' className='text-white p-2 rounded bg-red-500'>{t('Delete')}</Link>
+                </td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <div className="flex justify-end flex-wrap items-center gap-2 mr-6">
+
+      <div className="lg:hidden">
+        {products.data?.map(product => (
+          <div  key={product.id}  className="border rounded shadow p-4">
+            <p><strong>ID:</strong> {product.id}</p>
+            <p><strong>{t('Name')}:</strong> {product.name}</p>
+            <p><strong>{t('Price')}:</strong> {formatCurrency(product.price)}</p>
+            <p><strong>{t('Stock Quantity')}:</strong> {product.stock_quantity}</p>
+            <p><strong>Description:</strong> {product.description}</p>
+            <img src={product.image} className='max-w-[250px]'/>
+            <div className='flex space-x-2 mt-20'>
+              <Link href={route('product.edit', product.id)} as='button' className='text-white p-2 rounded bg-blue-500'>{t('Edit')}</Link>
+              <Link href={route('product.destroy', product.id)} as='button' method='delete' className='text-white p-2 rounded bg-red-500'>{t('Delete')}</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-end flex-wrap items-center gap-2 mt-2">
           {products.links?.map((link, index) => (
           <Link
             key={index}
@@ -59,6 +81,6 @@ export default function Product ({products = []}) {
           ))}
       </div>
       
-    </div>
+    </AdminLayout>
   )
 }

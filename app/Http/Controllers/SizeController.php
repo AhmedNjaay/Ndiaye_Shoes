@@ -14,7 +14,7 @@ class SizeController extends Controller
     public function index()
     {
         return Inertia::render('Size/Size', [
-            'sizes' => Size::orderBy('created_at')->paginate(8),
+            'sizes' => Size::orderBy('created_at')->paginate(10),
         ]);
     }
 

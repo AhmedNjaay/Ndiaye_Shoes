@@ -1,4 +1,6 @@
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router, useForm } from '@inertiajs/react'
+import { useLaravelReactI18n } from 'laravel-react-i18n';
 import React from 'react'
 
 export default function Edit (products) {
@@ -34,8 +36,10 @@ export default function Edit (products) {
     });
   };
 
+  const {t} = useLaravelReactI18n();
+  
   return (
-    <div>
+    <AdminLayout>
       <Head>
         <title>{products? 'Editer un produit':'Créer un produit'}</title>
       </Head>  
@@ -45,19 +49,19 @@ export default function Edit (products) {
       </div> 
       <form onSubmit={submit} className='flex items-center flex-col flex-wrap gap-4'>
           <div className="flex flex-col pl-4 max-w-[300px] gap-x-4">
-            <label htmlFor='name' className='text-base font-weight text-black'>Name</label>
+            <label htmlFor='name' className='text-base font-weight text-black'>{t('Name')}</label>
             <input id='name' type='text' className='p-2 text-base border-2 border-gray-500 rounded-[4px] focus:ring-0 focus:border-gray-500' value={data.name} onChange={e =>setData('name', e.target.value )} />
             {errors.name && <div>{errors.name}</div>}
         
-            <label htmlFor='price' className='text-base font-weight text-black'>Price</label>
+            <label htmlFor='price' className='text-base font-weight text-black'>{t('Price')}</label>
             <input id='price' type='number' className='p-2 text-base border-2 border-gray-500 rounded-[4px] focus:ring-0 focus:border-gray-500' value={data.price} onChange={e =>setData('price', e.target.value )} />
             {errors.price && <div>{errors.price}</div>}
 
-            <label htmlFor='stock' className='text-base font-weight text-black'>Stock quantity</label>
+            <label htmlFor='stock' className='text-base font-weight text-black'>{t('Stock quantity')}</label>
             <input id='stock' type='number' className='p-2 text-base border-2 border-gray-500 rounded-[4px] focus:ring-0 focus:border-gray-500' value={data.stock_quantity} onChange={e =>setData('stock_quantity', e.target.value )} />
             {errors.stock_quantity && <div>{errors.stock_quantity}</div>}
 
-            <label htmlFor='size' className='text-base font-weight text-black'>Size</label>
+            <label htmlFor='size' className='text-base font-weight text-black'>{t('Size')}</label>
             <select 
               id="size" 
               value={data.size_ids} 
@@ -96,8 +100,6 @@ export default function Edit (products) {
             </button>
           </div>
       </form>    
-
-      
-    </div>
+    </AdminLayout>
   )
 }

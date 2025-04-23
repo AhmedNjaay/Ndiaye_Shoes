@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use App\Models\Size;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SizeTest extends TestCase
@@ -12,9 +12,20 @@ class SizeTest extends TestCase
 
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        /** @var \App\Models\Admin $admin **/
+
+        //Création et connection admin
+        $admin = Admin::factory()->create();
+        $this->actingAs($admin, 'admin'); // Authentification avec le guard "admin"
+    }
+
     public function test_size_screen_can_be_rendered(): void
     {
-        $response = $this->get('/size');
+        $response = $this->get('/admin-panel-9863/size');
 
         $response->assertStatus(200);
     }
@@ -22,7 +33,7 @@ class SizeTest extends TestCase
 
     public function test_size_create_screen_can_be_rendered(): void
     {
-        $response = $this->get('/size/create');
+        $response = $this->get('/admin-panel-9863/size/create');
 
         $response->assertStatus(200);
     }

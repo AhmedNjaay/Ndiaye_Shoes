@@ -11,5 +11,5 @@ export default defineConfig({
         }),
         react(),
         i18n(),
-    ],
+    ]
 });

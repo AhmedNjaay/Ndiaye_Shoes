@@ -24,7 +24,6 @@ export default function Login({ status, canResetPassword }) {
 
     const {t} = useLaravelReactI18n();
     
-
     return (
         <GuestLayout>
             <Head title={t('Log in')} />
